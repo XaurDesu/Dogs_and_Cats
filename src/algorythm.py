@@ -129,6 +129,7 @@ def model_trainer(model):
     model.fit(
         train_ds, epochs=epochs, callbacks=callbacks, validation_data=val_ds,
     )
+    main()
 
 def image_show():
     plt.figure(figsize=(10, 10))
@@ -138,6 +139,8 @@ def image_show():
             plt.imshow(images[i].numpy().astype("uint8"))
             plt.title(int(labels[i]))
             plt.axis("off")
+    
+    main()
 
 def add_img():
     data_augmentation = keras.Sequential(
@@ -146,6 +149,8 @@ def add_img():
         layers.RandomRotation(0.1),
     ]
     )
+
+    menu()
 
 def inferencia(model, ruta):
     img = keras.preprocessing.image.load_img(
@@ -160,6 +165,7 @@ def inferencia(model, ruta):
         "Imagen %.2f por ciento gato y %.2f por ciento perro."
         % (100 * (1 - score), 100 * score)
     )
+    main()
 #MAIN FUNCTIONS
 def main():
     remove_corrupted_images()
@@ -180,7 +186,7 @@ def main():
     elif inpt == "2":
         add_img()
     elif inpt == "3":
-        model_trainer()
+        model_trainer(model)
     elif inpt == "4":
         print("ingrese la ruta")
         ruta = input()
